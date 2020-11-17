@@ -1,0 +1,421 @@
+
+*{
+  box-sizing: border-box;
+}
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+address, cite, dfn, em, var,i { font-style:normal; }
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+small{ font-size:12px; }
+ul, ol { list-style:none; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+legend { color:#000; }
+fieldset, img { border:0; }
+button, input, select, textarea { font-size:100%; }
+table { border-collapse:collapse; border-spacing:0; }
+
+a,a:focus,a:active,a:visited,a:focus-within{
+    text-decoration: none;
+    outline: 0;
+}
+.layout {
+  width: 1000px;
+  margin: 0 auto;
+}
+.width{
+    width: 100%;
+}
+.height{
+    height: 100%;
+}
+.flex{
+    display: flex;
+}
+.flex-1{
+    flex:1;
+}
+.flex-middle{
+    align-items: center;
+    align-content:center;
+}
+.flex-wrap{
+    flex-flow: row nowrap;
+}
+.flex-center{
+    justify-content: center;
+}
+
+.halfradius{
+    border-radius: 50%;
+}
+.relative{
+    position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.gray{
+    color: #999;
+}
+.rotate45{
+	transform: rotate(45deg);
+}
+.rotate90{
+	transform: rotate(90deg);
+}
+.f-10{
+    font-size: 10px !important;
+}
+.f-11{
+    font-size: 11px !important;
+}
+.f-12{
+    font-size: 12px !important;
+}
+.f-13{
+    font-size: 13px !important;
+}
+.f-14{
+    font-size: 14px !important;
+}
+.f-16{
+    font-size: 16px !important;
+}
+.f-18{
+    font-size: 18px !important;
+}
+.f-20{
+    font-size: 20px !important;
+}
+.f-24{
+    font-size: 24px !important;
+}.f-28{
+    font-size: 28px !important;
+}
+.f-w {
+	font-weight: bold;
+}
+.over-hid{
+    overflow: hidden;
+}
+.mirror{
+    transform:rotate(180deg);
+}
+
+.tl{
+    text-align: left;
+}
+.tc{
+    text-align: center;
+}
+.tr{
+    text-align: right;
+}
+
+.fr{
+	float: right;
+}
+.fl{
+    float: left;
+}
+
+.line-0{
+    line-height: 0;
+}
+.row{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+button{
+    outline: 0;
+    border: 0;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.bg-white{
+    background-color: #ffffff;
+}
+.color-white {
+  color: white;
+}
+
+.text-hidden{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.item-three{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.top_left_center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.block{
+    display: block;
+}
+.inline-block{
+  display: inline-block;
+}
+
+
+
+/* margin 20 */
+.mar-right-20,.mr-20{
+    margin-right: 20px;
+}
+.mar-left-20,.ml-20{
+    margin-left: 20px;
+}
+.mar-top-20,.mt-20{
+    margin-top: 20px;
+}
+.mar-bottom-20,.mb-20{
+	margin-bottom: 20px;
+}
+.mar-tb-20 {
+  margin: 20px 0;
+}
+.mar-lr-20 {
+  margin: 0 20px;
+}
+.mar-all-20 {
+  margin: 20px;
+}
+
+/* margin 15 */
+.mar-top-15,.mt-15{
+  margin-top: 15px;
+}
+.mar-left-15,.ml-15{
+  margin-left: 15px;
+}
+.mar-right-15,.mr-15{
+  margin-right: 15px;
+}
+.mar-bottom-15,.mb-15{
+  margin-bottom: 15px;
+}
+.mar-tb-15 {
+  margin: 15px 0;
+}
+.mar-lr-15 {
+  margin: 0 15px;
+}
+.mar-all-15 {
+  margin: 15px;
+}
+
+/* margin 10 */
+.mar-top-10,.mt-10{
+  margin-top: 10px;
+}
+.mar-left-10,.ml-10{
+  margin-left: 10px;
+}
+.mar-right-10,.mr-10{
+  margin-right: 10px;
+}
+.mar-bottom-10,.mb-10{
+	margin-bottom: 10px;
+}
+.mar-tb-10 {
+  margin: 10px 0;
+}
+.mar-lr-10 {
+  margin: 0 10px;
+}
+.mar-all-10 {
+  margin: 10px;
+}
+
+/* margin 5 */
+.mar-top-5,.mt-5{
+    margin-top: 5px;
+}
+.mar-left-5,.ml-5{
+    margin-left: 5px;
+}
+.mar-right-5,.mr-5{
+    margin-right: 5px;
+}
+.mar-bottom-5,.mb-5{
+	margin-bottom: 5px;
+}
+.mar-tb-5 {
+  margin: 5px 0;
+}
+.mar-lr-5 {
+  margin: 0 5px;
+}
+.mar-all-5 {
+  margin: 5px;
+}
+
+
+
+/* padding 20 */
+.pad-top-20 {
+  padding-top: 20px;
+}
+.pad-bottom-20 {
+  padding-bottom: 20px;
+}
+.pad-left-20 {
+  padding-left: 20px;
+}
+.pad-right-20 {
+  padding-right: 20px;
+}
+.pad-tb-20 {
+	padding: 20px 0;
+}
+.pad-lr-20 {
+	padding: 0 20px;
+}
+.pad-all-20 {
+	padding: 20px;
+}
+
+/* padding 15 */
+.pad-top-15 {
+  padding-top: 15px;
+}
+.pad-bottom-15 {
+  padding-bottom: 15px;
+}
+.pad-left-15 {
+  padding-left: 15px;
+}
+.pad-right-15 {
+  padding-right: 15px;
+}
+.pad-tb-15 {
+	padding: 15px 0;
+}
+.pad-lr-15 {
+	padding: 0 15px;
+}
+.pad-all-15 {
+	padding: 15px;
+}
+
+/* padding 10 */
+.pad-top-10,.pt-10{
+	padding-top: 10px;
+}
+.pad-right-10,.pr-10{
+	padding-right: 10px;
+}
+.pad-left-10,.pl-10{
+	padding-left: 10px;
+}
+.pad-bottom-10,.pb-10{
+	padding-bottom: 10px;
+}
+.pad-tb-10 {
+	padding: 10px 0;
+}
+.pad-lr-10 {
+	padding: 0 10px;
+}
+.pad-all-10 {
+	padding: 10px;
+}
+
+/* padding 5 */
+.pad-top-5,.pt-5{
+	padding-top: 5px;
+}
+.pad-left-5,.pl-5{
+	padding-left: 5px;
+}
+.pad-right-5,.pr-5{
+	padding-right: 5px;
+}
+.pad-bottom-5,.pb-5{
+  padding-top: 5px;
+}
+.pad-tb-5 {
+	padding: 5px 0;
+}
+.pad-lr-5 {
+	padding: 0 5px;
+}
+.pad-all-5 {
+	padding: 5px;
+}
+
+
+.row{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.space-between{
+    justify-content: space-between;
+}
+.flex-column{
+  flex-flow: column;
+}
+.flex-end{
+  justify-content: flex-end;
+}
+.bolder{
+	font-weight: bolder;
+}
+.pointer{
+	cursor: pointer;
+}
+
+.no-scroll{
+    &::-webkit-scrollbar {
+        width: 0 !important;
+    }
+    -ms-overflow-style: none;
+    overflow-y: scroll;
+    overflow: -moz-scrollbars-none;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.middle {
+	vertical-align: middle;
+}
+sup { 
+  vertical-align:text-top; 
+}
+sub{ 
+  vertical-align:text-bottom; 
+}
+
+.content-layout {
+  min-height: calc(100vh - 100px);
+}
+.font-color-2 {
+  color: #dcdee2;
+}
+.red {
+  color: #ef532c;
+}
+.green {
+  color: green;
+}
