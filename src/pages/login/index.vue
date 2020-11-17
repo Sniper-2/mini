@@ -72,6 +72,14 @@ export default {
         this.loginStatus = '登录';
         return this.$message.error('请输入完整的帐号或密码');
       }
+      this.$message({
+        message: '登录成功!',
+        type: 'success'
+      });
+      setTimeout(() => {
+        this.$router.push({ path: 'reservationsList' });
+      }, 500)
+      
       // let sendData = this.loginForm;
     }
   }

@@ -25,4 +25,10 @@ export default {
 *::-webkit-scrollbar {
   display: none;
 }
+* {
+  box-sizing: border-box;
+}
+.page-content {
+  min-height: calc(100vh - 20px);
+}
 </style>

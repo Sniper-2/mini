@@ -14,6 +14,34 @@ let routes = [{
 		name: 'system-page',
 		component: () => import('@/pages/system-page'),
 		children: [
+			{
+				meta: {
+					title: '图片设置'
+				},
+				name: 'miniAppImgSet',
+				path: '/miniAppImgSet'
+			},
+			{
+				meta: {
+					title: '预约列表'
+				},
+				name: 'reservationsList',
+				path: '/reservationsList'
+			},
+			{
+				meta: {
+					title: '修改密码'
+				},
+				name: 'changePassword',
+				path: '/changePassword'
+			},
+			{
+				meta: {
+					title: '联系方式'
+				},
+				name: 'contactMode',
+				path: '/contactMode'
+			},
 		]
 	},
 	{
@@ -22,7 +50,8 @@ let routes = [{
 	},
 	{
 		path: '',
-		redirect: '/login'
+		// redirect: '/login'
+		redirect: '/systemIndex'
 	},
 	{
 		path: '*',

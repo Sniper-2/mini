@@ -3,25 +3,29 @@
     <!-- 菜单栏 -->
     <div class="left-menu">
       <el-menu
-        default-active="2"
+        default-active="reservationsList"
         class="el-menu-vertical-demo"
-        @open="handleOpen"
+        @select="handleOpen"
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-menu-item index="1">
-          <i class="el-icon-setting"></i>
-          <span slot="title">资料设置</span>
-        </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="reservationsList">
           <i class="el-icon-s-order"></i>
           <span slot="title">预约列表</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="miniAppImgSet">
+          <i class="el-icon-setting"></i>
+          <span slot="title">图片设置</span>
+        </el-menu-item>
+        <el-menu-item index="contactMode">
+          <i class="el-icon-guide"></i>
+          <span slot="title">联系方式</span>
+        </el-menu-item>
+        <el-menu-item index="changePassword">
           <i class="el-icon-edit-outline"></i>
           <span slot="title">修改密码</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="logOut">
           <i class="el-icon-back"></i>
           <span slot="title">退出登录</span>
         </el-menu-item>
@@ -78,7 +82,10 @@ export default {
     },
 
     handleOpen (e) {
-
+      if (e == 'logOut') {
+        return
+      }
+      this.$router.push({ path: e });
     },
 
     ...mapActions(['MENU_SHOW_TYPE', 'SELECT_MENU_INFO', 'PAGE_BUTTON_LIST'])
@@ -113,8 +120,10 @@ export default {
 }
 
 .view-content {
-  min-height: calc(100vh - 57px);
+  min-height: 100vh;
   .content-box {
+    min-height: calc(100vh - 20px);
+    height: 100%;
     position: relative;
     border-radius: 6px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.08);
