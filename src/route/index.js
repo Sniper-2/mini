@@ -50,8 +50,8 @@ let routes = [{
 	},
 	{
 		path: '',
-		// redirect: '/login'
-		redirect: '/systemIndex'
+		redirect: '/login'
+		// redirect: '/systemIndex'
 	},
 	{
 		path: '*',
