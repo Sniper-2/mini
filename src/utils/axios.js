@@ -21,7 +21,7 @@ export default function (config = { timeout: 5000 }) {
 	config = {
 		headers: { 
 			'Content-Type': config['ContentType'] || fromDataType,
-			Token: token
+			AdminToken: token
 		},
 		transformRequest: [
 			function (params, headers) {

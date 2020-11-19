@@ -5,12 +5,15 @@
     <div class="inline-block update-content">
       <div class="tc f-w pad-tb-10 f-16 item-title">小程序首页</div>
       <div class="preview-item">
-        <img src="../../../assets/image/home-banner.jpg" class="top-img">
+        <img :src="miniHomeImg" class="top-img">
 
-        <el-upload
+        <el-upload :show-file-list="false"
+          multiple
+          :headers="{ AdminToken: token }"
           class="upload-demo"
-          action="http://1v85r80243.51mypc.cn/inspection/admin/configuration/upload">
-          <el-button size="small" type="primary">点击上传</el-button>
+          :on-success="upImgSuccess"
+          action="/inspection/admin/configuration/upload">
+          <el-button size="small" type="primary" @click="readyUpload('miniHomeImg')">点击上传</el-button>
         </el-upload>
       </div>
     </div>
@@ -19,12 +22,15 @@
     <div class="inline-block update-content">
       <div class="tc f-w pad-tb-10 f-16 item-title">在线校验</div>
       <div class="preview-item">
-        <img src="../../../assets/image/home-banner.jpg" class="top-img">
+        <img :src="onLineCheckImg" class="top-img">
 
-        <el-upload
+        <el-upload :show-file-list="false"
+          multiple
+          :headers="{ AdminToken: token }"
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/">
-          <el-button size="small" type="primary">点击上传</el-button>
+          :on-success="upImgSuccess"
+          action="/inspection/admin/configuration/upload">
+          <el-button size="small" type="primary" @click="readyUpload('onLineCheckImg')">点击上传</el-button>
         </el-upload>
       </div>
     </div>
@@ -33,12 +39,15 @@
     <div class="inline-block update-content">
       <div class="tc f-w pad-tb-10 f-16 item-title">上门校验</div>
       <div class="preview-item">
-        <img src="../../../assets/image/home-banner.jpg" class="top-img">
+        <img :src="visitCheckImg" class="top-img">
 
-        <el-upload
+        <el-upload :show-file-list="false"
+          multiple
+          :headers="{ AdminToken: token }"
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/">
-          <el-button size="small" type="primary">点击上传</el-button>
+          :on-success="upImgSuccess"
+          action="/inspection/admin/configuration/upload">
+          <el-button size="small" type="primary" @click="readyUpload('visitCheckImg')">点击上传</el-button>
         </el-upload>
       </div>
     </div>
@@ -47,21 +56,31 @@
     <div class="inline-block update-content">
       <div class="tc f-w pad-tb-10 f-16 item-title">离线校验</div>
       <div class="preview-item">
-        <img src="../../../assets/image/home-banner.jpg" class="top-img">
+        <img :src="offLineCheckImg" class="top-img">
 
-        <el-upload
+        <el-upload :show-file-list="false"
+          multiple
+          :headers="{ AdminToken: token }"
           class="upload-demo banner-up"
-          action="https://jsonplaceholder.typicode.com/posts/">
-          <el-button size="small" type="primary">点击上传Banner</el-button>
+          :on-success="upImgSuccess"
+          action="/inspection/admin/configuration/upload">
+          <el-button size="small" type="primary" @click="readyUpload('offLineCheckImg')">点击上传Banner</el-button>
         </el-upload>
-        <el-upload
+        <el-upload :show-file-list="false"
+          multiple
+          :headers="{ AdminToken: token }"
           class="upload-demo map-up"
-          action="https://jsonplaceholder.typicode.com/posts/">
-          <el-button size="small" type="primary">点击上传地图</el-button>
+          :on-success="upImgSuccess"
+          action="/inspection/admin/configuration/upload">
+          <el-button size="small" type="primary" @click="readyUpload('offLineMapImg')">点击上传地图</el-button>
         </el-upload>
 
-        <img src="../../../assets/image/map-img.jpg" class="map-img">
+        <img :src="offLineMapImg" class="map-img">
       </div>
+    </div>
+
+    <div class="t-c pad-tb-20">
+      <el-button type="primary" @click="saveData">保存配置</el-button>
     </div>
   </div>
 </template>
@@ -76,14 +95,23 @@ export default {
   },
   data() {
     return {
-
+      token: '',
+      upImgAttrName: '',
+      miniHomeImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',        // 小程序首页图片
+      onLineCheckImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',     // 在线校验图片
+      offLineCheckImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',    // 离线校验图片
+      visitCheckImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',      // 上门校验图片
+      offLineMapImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',      // 离线校验地图
+      offLineContent: '',
+      oldConfigInfo: {}
     };
   },
   computed: {
 
   },
   created() {
-
+    this.token = localStorage.getItem('token');
+    this.getConfig()
   },
   mounted() {
 
@@ -92,6 +120,57 @@ export default {
 
   },
   methods: {
+    // 准备上传
+    readyUpload (e) {
+      console.log(e)
+      this.upImgAttrName = e
+    },
+
+    // 图片上传成功
+    upImgSuccess (e, s) {
+      console.log(e)
+      console.log(this.upImgAttrName)
+      this[this.upImgAttrName] = e.data
+    },
+
+    // 获取配置
+    getConfig () {
+      this.request('', { loading: true }).get(this.apiConfig.getConfig).then(res => {
+        console.log(res)
+        this.oldConfigInfo = res.data
+        this.offLineContent = res.data.offlineContent
+        this.offLineCheckImg = res.data.offlineImg
+        this.onLineCheckImg = res.data.onlineImg
+        this.miniHomeImg = res.data.homeImg
+        this.visitCheckImg = res.data.onsiteImg
+      }).catch(err => {
+        this.$message.error(err.msg);
+      })
+    },
+
+    // 保存更新
+    saveData () {
+      let params = {
+        address: this.oldConfigInfo.address,
+        tel: this.oldConfigInfo.tel,
+        businessHours: this.oldConfigInfo.businessHours,
+        contact: this.oldConfigInfo.contact,
+        id: this.oldConfigInfo.id,
+        offlineContent: this.offLineContent,
+        offlineImg: this.offLineCheckImg,
+        onlineImg: this.onLineCheckImg,
+        homeImg: this.miniHomeImg,
+        onsiteImg: this.visitCheckImg,
+      }
+      this.request('', { loading: true }).post(this.apiConfig.upDateConfig, params).then(res => {
+        this.$message({
+          message: '保存成功!',
+          type: 'success'
+        });
+      }).catch(err => {
+        this.$message.error(err.msg);
+      })
+    }
 
   }
 };

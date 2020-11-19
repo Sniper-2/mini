@@ -6,5 +6,11 @@ module.exports = {
   userLogOut: '/inspection/admin/logout',
 
   // 修改密码
-  changePassword: '/inspection/admin/changePassword'
+  changePassword: '/inspection/admin/changePassword',
+
+  // 更新配置信息
+  upDateConfig: '/inspection/admin/configuration/update',
+
+  // 获取配置
+  getConfig: '/inspection/admin/configuration/get'
 }

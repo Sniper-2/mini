@@ -44,7 +44,7 @@ export default function (prefix = '', config = {}) {
 				setTimeout(() => {
 					// console.log(Vue.$router)
 					// Router.push({ name: 'login' })
-					location.href = '/login';
+					// location.href = '/login';
 				}, 800)
 				return Promise.reject(response.data);
 			}
