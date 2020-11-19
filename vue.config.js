@@ -16,7 +16,7 @@ module.exports = {
 		port: 3000,
 		proxy: {
 			'/inspection': {
-				target: 'http://1v85r80243.51mypc.cn',
+				// target: 'http://115.29.204.125/inspection',
 				// target: 'http://api.aqmcn.com',
 				// target: 'http://192.168.99.116:8060',
 				changeOrigin: true

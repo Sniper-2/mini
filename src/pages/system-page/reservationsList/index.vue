@@ -2,21 +2,21 @@
   <div class="height">
     <div class="flex bg-white flex-middle pad-all-15 search-item-box">
       <el-form :inline="true" class="demo-form-inline">
-        <el-form-item label="检验时间">
+        <!-- <el-form-item label="检验时间">
           <el-date-picker v-model="searchData.statrTimes" type="date" placeholder="选择日期"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="检验方式">
-          <el-select v-model="searchData.checkMode" placeholder="请选择检验方式">
-            <el-option label="在线检验" :value="1"></el-option>
-            <el-option label="离线检验" :value="2"></el-option>
+        </el-form-item> -->
+        <el-form-item label="检验状态">
+          <el-select v-model="searchData.checkStatus" placeholder="请选择检验状态">
+            <el-option label="预约中" :value="0"></el-option>
+            <el-option label="已完成" :value="1"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="提交时间">
+        <!-- <el-form-item label="提交时间">
           <el-date-picker v-model="searchData.statrTimes" type="date" placeholder="选择日期"></el-date-picker>
         </el-form-item>
         <el-form-item label="联系电话">
           <el-input v-model="searchData.phoneNum" placeholder="请输入内容"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div class="flex-1 tr search-btn">
         <el-button type="primary" @click="getSearchData">搜索</el-button>
@@ -90,7 +90,7 @@ export default {
 
   },
   created() {
-
+    this.getPageData()
   },
   mounted() {
 
@@ -100,7 +100,16 @@ export default {
   },
   methods: {
     getPageData () {
-
+      let params = {
+        state: '',
+        pages: this.searchData.page,
+        current: 10
+      }
+      this.request('', { loading: true }).get(this.apiConfig.getReservationList).then(res => {
+        console.log(res)
+      }).catch(err => {
+        this.$message.error(err.msg);
+      })
     },
 
     getSearchData () {
@@ -109,6 +118,8 @@ export default {
 
     pageChange (e) {
       console.log(e)
+      this.searchData.page = e
+      this.getPageData()
     },
 
     // 更新状态

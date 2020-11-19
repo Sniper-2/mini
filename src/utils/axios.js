@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.API_URL;
-let defaultsHeader = 'application/json';
+// let defaultsHeader = 'application/json';
 let fromDataType = 'application/x-www-form-urlencoded;charset=UTF-8';
 let multipartType = 'multipart/form-data';
 let token = localStorage.getItem('token')

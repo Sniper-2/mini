@@ -12,5 +12,8 @@ module.exports = {
   upDateConfig: '/inspection/admin/configuration/update',
 
   // 获取配置
-  getConfig: '/inspection/admin/configuration/get'
+  getConfig: '/inspection/admin/configuration/get',
+
+  // 获取预约信息
+  getReservationList: '/inspection/admin/reservation/list'
 }

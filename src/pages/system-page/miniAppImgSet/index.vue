@@ -61,31 +61,52 @@
         <el-upload :show-file-list="false"
           multiple
           :headers="{ AdminToken: token }"
-          class="upload-demo banner-up"
+          class="upload-demo"
           :on-success="upImgSuccess"
           action="/inspection/admin/configuration/upload">
           <el-button size="small" type="primary" @click="readyUpload('offLineCheckImg')">点击上传Banner</el-button>
         </el-upload>
-        <el-upload :show-file-list="false"
+        <!-- <el-upload :show-file-list="false"
           multiple
           :headers="{ AdminToken: token }"
           class="upload-demo map-up"
           :on-success="upImgSuccess"
           action="/inspection/admin/configuration/upload">
           <el-button size="small" type="primary" @click="readyUpload('offLineMapImg')">点击上传地图</el-button>
-        </el-upload>
+        </el-upload> -->
 
         <img :src="offLineMapImg" class="map-img">
       </div>
     </div>
 
+
+    <div class="mt-15">
+      <div class="tc f-w pad-tb-10 f-16 item-title">离线校验页面尾部富文本</div>
+      <quill-editor
+        ref="myTextEditor"
+        :options="editorOption"
+        v-model="offLineContent"
+        @ready="onEditorReady($event)"
+        placeholder="请输入文章正文"
+      ></quill-editor>
+    </div>
+
     <div class="t-c pad-tb-20">
       <el-button type="primary" @click="saveData">保存配置</el-button>
     </div>
+
+    <input
+      type="file"
+      accept="image/*"
+      id="imageUpload"
+      hidden
+      @change="uploadTeachingPlanPicture"
+    />
   </div>
 </template>
 
 <script>
+import request from '@/utils/request'
 export default {
   props: {
 
@@ -95,6 +116,9 @@ export default {
   },
   data() {
     return {
+      editorOption: {
+        placeholder: '请在这里填写资料'
+      },
       token: '',
       upImgAttrName: '',
       miniHomeImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',        // 小程序首页图片
@@ -170,16 +194,44 @@ export default {
       }).catch(err => {
         this.$message.error(err.msg);
       })
+    },
+
+    // 富文本准备好了，用我们的上传替换掉富文本的上传
+    onEditorReady (event) {
+      const quillEdit = event;
+      this.quillEdit = event;
+      const toolbar = quillEdit.getModule('toolbar');
+      toolbar.addHandler('image', item => {
+        quillEdit.format('image', false);
+        const upload = document.getElementById('imageUpload');
+        upload.click();
+      });
+    },
+
+    // 编辑器图片上传
+    uploadTeachingPlanPicture (event) {
+      this.modelLoading = true;
+      const file = event.target.files[0];
+      let form = new FormData();
+      form.append('file', file);
+      request('', { ContentType: 'multipart/form-data' }).post('/inspection/admin/configuration/upload', form).then(res => {
+        console.log(res)
+        this.modelLoading = false;
+        if (res == 0) return this.$Message.error('图片上传失败!');
+        let length = this.quillEdit.getSelection().index;
+        this.quillEdit.insertEmbed(length, 'image', res);
+        this.quillEdit.setSelection(length + 1);
+      });
     }
 
   }
 };
 </script>
 
-<style scoped>
-.page-box {
-  padding-top: 5%;
-}
+<style scoped  lang='scss'>
+// .page-box {
+//   padding-top: 5%;
+// }
 .preview-item {
   position: relative;
   width: 273px;
@@ -220,4 +272,16 @@ export default {
 .update-content + .update-content {
   margin-left: 3%;
 }
+.page-box {
+  /deep/ {
+    .ivu-form-inline .block {
+      display: block;
+    }
+    .ql-container,
+    .ql-editor {
+      min-height: 400px;
+    }
+  }
+}
+
 </style>
