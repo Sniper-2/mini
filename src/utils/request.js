@@ -1,6 +1,9 @@
 import Myaxios from './axios.js';
 
 import store from '../store/index';
+import { Message } from 'element-ui';
+import { createRouter } from '@/route';
+let Router = createRouter()
 
 /**
  * @param prefix url前缀
@@ -34,15 +37,23 @@ export default function (prefix = '', config = {}) {
 	instances.interceptors.response.use(
 		function (response) {
 			store.commit('GET_DATA_LOADING', false);
+			if (response.data.code == 500) {
+				return Promise.reject(response.data);
+			}
+			if (response.data.code == 401) {
+				setTimeout(() => {
+					// console.log(Vue.$router)
+					// Router.push({ name: 'login' })
+					location.href = '/login';
+				}, 800)
+				return Promise.reject(response.data);
+			}
 			return response.data;
 		},
 		function (error) {
-			let response = arguments[0].response;
-			if (response.data.statu == '-1' && response.data.msgText == '请先进行登录') {
-				location.href = '/login';
-			}
+			let data = arguments[0].response.data;
 			store.commit('GET_DATA_LOADING', false);
-			return Promise.reject(error);
+			return Promise.reject(data);
 		}
 	);
 

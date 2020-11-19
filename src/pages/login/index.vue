@@ -35,6 +35,9 @@
 </template>
 
 <script>
+
+import store from '../../store/index';
+import { mapActions } from 'vuex';
 export default {
   name: 'login',
   data () {
@@ -56,10 +59,10 @@ export default {
     };
   },
   created () {
+    console.log(this.request)
   },
 
   methods: {
-
     // 用户登录
     handleLogin () {
       this.loading = true;
@@ -72,15 +75,26 @@ export default {
         this.loginStatus = '登录';
         return this.$message.error('请输入完整的帐号或密码');
       }
-      this.$message({
-        message: '登录成功!',
-        type: 'success'
-      });
-      setTimeout(() => {
-        this.$router.push({ path: 'reservationsList' });
-      }, 500)
-      
-      // let sendData = this.loginForm;
+
+      let params = {
+        username: this.loginForm.username,
+        password: this.loginForm.password,
+      }
+      this.request().post(this.apiConfig.userLogin, params).then(res => {
+        this.$message({
+          message: '登录成功!',
+          type: 'success'
+        });
+        localStorage.setItem("token", res.data.adminToken)
+        store.commit('USER_INFO', res.data.admin)
+        setTimeout(() => {
+          this.$router.push({ path: 'reservationsList' });
+        }, 500)
+      }).catch(err => {
+        this.loading = false;
+        this.loginStatus = '登录';
+        this.$message.error(err.msg);
+      })
     }
   }
 };

@@ -39,11 +39,7 @@
       <div class="pad-all-10 view-content">
         <div class="pad-all-10 bg-white content-box">
           <transition name="fade">
-            <div class="loading" v-if="$store.state.getDataLoading">
-            </div>
-          </transition>
-          <transition name="fade">
-            <router-view class="view-class" />
+            <router-view v-loading="$store.state.getDataLoading" class="view-class" />
           </transition>
         </div>
       </div>
@@ -51,7 +47,6 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
 export default {
   components: {
   },
@@ -72,23 +67,32 @@ export default {
 
   },
   methods: {
-    // 选中某个菜单
-    selectMenu (e) {
-      this.$router.push({ path: e });
-    },
-
-    menuClick (menu) {
-      this.SELECT_MENU_INFO(menu);
-    },
 
     handleOpen (e) {
+      // 登出
       if (e == 'logOut') {
+        this.userLogOut()
         return
       }
       this.$router.push({ path: e });
     },
 
-    ...mapActions(['MENU_SHOW_TYPE', 'SELECT_MENU_INFO', 'PAGE_BUTTON_LIST'])
+    // 用户登出
+    userLogOut () {
+      this.request('', { loading: true }).post(this.apiConfig.userLogOut).then(res => {
+        this.$message({
+          message: '登出成功!',
+          type: 'success'
+        });
+        localStorage.removeItem("token")
+        store.commit('USER_INFO', {})
+        setTimeout(() => {
+          this.$router.push({ path: '' });
+        }, 500)
+      }).catch(err => {
+        this.$message.error(err.msg);
+      })
+    }
 
   },
   beforeDestroy () { }

@@ -10,10 +10,7 @@ export default {
 	[types.MENU_SHOW_TYPE] (state, string) {
 		state.menuShowType = string;
 	},
-	[types.SELECT_MENU_INFO] (state, object) {
-		state.selectMenuInfo = object;
-	},
-	[types.PAGE_BUTTON_LIST] (state, array) {
-		state.pageButtonList = array;
+	[types.USER_INFO] (state, object) {
+		state.userInfo = object;
 	}
 };

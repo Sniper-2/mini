@@ -4,7 +4,7 @@ axios.defaults.baseURL = process.env.API_URL;
 let defaultsHeader = 'application/json';
 let fromDataType = 'application/x-www-form-urlencoded;charset=UTF-8';
 let multipartType = 'multipart/form-data';
-
+let token = localStorage.getItem('token')
 function serialize (obj) {
 	if (!obj) return '';
 	let arr = [];
@@ -19,7 +19,10 @@ function serialize (obj) {
 }
 export default function (config = { timeout: 5000 }) {
 	config = {
-		headers: { 'Content-Type': config['ContentType'] || defaultsHeader },
+		headers: { 
+			'Content-Type': config['ContentType'] || fromDataType,
+			Token: token
+		},
 		transformRequest: [
 			function (params, headers) {
 				if (headers['Content-Type'] == fromDataType) {

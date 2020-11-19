@@ -9,7 +9,7 @@
 
         <el-upload
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/">
+          action="http://1v85r80243.51mypc.cn/inspection/admin/configuration/upload">
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </div>

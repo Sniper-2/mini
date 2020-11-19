@@ -15,8 +15,8 @@ module.exports = {
 	devServer: {
 		port: 3000,
 		proxy: {
-			'/api': {
-				target: 'http://39.108.56.167:8099',
+			'/inspection': {
+				target: 'http://1v85r80243.51mypc.cn',
 				// target: 'http://api.aqmcn.com',
 				// target: 'http://192.168.99.116:8060',
 				changeOrigin: true

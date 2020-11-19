@@ -31,4 +31,10 @@ export default {
 .page-content {
   min-height: calc(100vh - 20px);
 }
+.view-content /deep/ .el-loading-mask {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+}
 </style>
