@@ -59,7 +59,6 @@ export default {
     };
   },
   created () {
-    console.log(this.request)
   },
 
   methods: {

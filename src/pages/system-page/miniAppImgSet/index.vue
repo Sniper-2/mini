@@ -75,7 +75,9 @@
           <el-button size="small" type="primary" @click="readyUpload('offLineMapImg')">点击上传地图</el-button>
         </el-upload> -->
 
-        <img :src="offLineMapImg" class="map-img">
+        <div v-html="offLineContent" class="map-img"></div>
+
+        <!-- <img :src="offLineMapImg" class="map-img"> -->
       </div>
     </div>
 
@@ -146,27 +148,28 @@ export default {
   methods: {
     // 准备上传
     readyUpload (e) {
-      console.log(e)
       this.upImgAttrName = e
     },
 
     // 图片上传成功
     upImgSuccess (e, s) {
-      console.log(e)
-      console.log(this.upImgAttrName)
       this[this.upImgAttrName] = e.data
     },
 
     // 获取配置
     getConfig () {
       this.request('', { loading: true }).get(this.apiConfig.getConfig).then(res => {
-        console.log(res)
         this.oldConfigInfo = res.data
         this.offLineContent = res.data.offlineContent
         this.offLineCheckImg = res.data.offlineImg
         this.onLineCheckImg = res.data.onlineImg
         this.miniHomeImg = res.data.homeImg
         this.visitCheckImg = res.data.onsiteImg
+
+        this.$nextTick(() => {
+          this.$refs.myTextEditor.quill.enable(true);
+          this.$refs.myTextEditor.quill.blur();
+        })
       }).catch(err => {
         this.$message.error(err.msg);
       })
@@ -174,6 +177,7 @@ export default {
 
     // 保存更新
     saveData () {
+      this.offLineContent = this.offLineContent.replace('<img', '<img style="max-width: 100%"')
       let params = {
         address: this.oldConfigInfo.address,
         tel: this.oldConfigInfo.tel,
@@ -215,12 +219,15 @@ export default {
       let form = new FormData();
       form.append('file', file);
       request('', { ContentType: 'multipart/form-data' }).post('/inspection/admin/configuration/upload', form).then(res => {
-        console.log(res)
         this.modelLoading = false;
-        if (res == 0) return this.$Message.error('图片上传失败!');
+        if (res.code == 500) return this.$Message.error('图片上传失败!');
         let length = this.quillEdit.getSelection().index;
-        this.quillEdit.insertEmbed(length, 'image', res);
+        this.quillEdit.insertEmbed(length, 'image', res.data);
         this.quillEdit.setSelection(length + 1);
+        this.$forceUpdate(() => {
+          this.offLineContent = this.offLineContent.replace('<img', '<img style="max-width: 100%"')
+        })
+        // console.log(this.offLineContent)
       });
     }
 
@@ -251,6 +258,9 @@ export default {
   width: 100%;
   bottom: 0;
   left: 0;
+}
+.map-img /deep/ img {
+  max-width: 100%;
 }
 
 .upload-demo {

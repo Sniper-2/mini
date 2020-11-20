@@ -47,6 +47,7 @@
   </div>
 </template>
 <script>
+import store from '../../store/index';
 export default {
   components: {
   },
@@ -87,7 +88,7 @@ export default {
         localStorage.removeItem("token")
         store.commit('USER_INFO', {})
         setTimeout(() => {
-          this.$router.push({ path: '' });
+          this.$router.push({ path: 'login' });
         }, 500)
       }).catch(err => {
         this.$message.error(err.msg);

@@ -2,7 +2,7 @@ const path = require('path');
 // const publicPath = process.env.BABEL_ENV == 'production' ? '/' : '/pythonSystem';
 // ? 'http://39.108.56.167:8099'
 const EVN =
-	process.env.BABEL_ENV == 'production' ? 'http://39.108.56.167:8099' : 'http://localhost:3000';
+	process.env.BABEL_ENV == 'production' ? 'http://jy.zjnan.cn' : 'http://localhost:3000';
 
 const resolve = dir => {
 	return path.join(__dirname, dir);
@@ -16,7 +16,7 @@ module.exports = {
 		port: 3000,
 		proxy: {
 			'/inspection': {
-				// target: 'http://115.29.204.125/inspection',
+				target: 'http://jy.zjnan.cn',
 				// target: 'http://api.aqmcn.com',
 				// target: 'http://192.168.99.116:8060',
 				changeOrigin: true
