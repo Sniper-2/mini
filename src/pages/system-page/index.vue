@@ -3,7 +3,7 @@
     <!-- 菜单栏 -->
     <div class="left-menu">
       <el-menu
-        default-active="reservationsList"
+        :default-active="defaultActive"
         class="el-menu-vertical-demo"
         @select="handleOpen"
         background-color="#545c64"
@@ -54,6 +54,7 @@ export default {
   props: {},
   data () {
     return {
+      defaultActive: 'reservationsList',
       pathInfo: '',
       menuList: [
         { menuName: '修改密码' }
@@ -61,8 +62,8 @@ export default {
       lisyTypeMenu: []
     };
   },
-  watch: {},
   created () {
+    this.defaultActive = this.$route.name
   },
   mounted () {
 

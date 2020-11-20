@@ -17,7 +17,7 @@
       <el-input placeholder="请输入帐号" v-model="loginForm.username">
         <template slot="prepend">帐号</template>
       </el-input>
-      <el-input placeholder="请输入密码" type="password" class="mt-20" v-model="loginForm.password">
+      <el-input placeholder="请输入密码" type="password" class="mt-20" @change="handleLogin" v-model="loginForm.password">
         <template slot="prepend">密码</template>
       </el-input>
       <el-button :type="loading ? 'info' : 'primary'" class="login-btn mt-20" @click="handleLogin">{{ loginStatus }}</el-button>

@@ -1,6 +1,4 @@
 const path = require('path');
-// const publicPath = process.env.BABEL_ENV == 'production' ? '/' : '/pythonSystem';
-// ? 'http://39.108.56.167:8099'
 const EVN =
 	process.env.BABEL_ENV == 'production' ? 'http://jy.zjnan.cn' : 'http://localhost:3000';
 
@@ -17,8 +15,6 @@ module.exports = {
 		proxy: {
 			'/inspection': {
 				target: 'http://jy.zjnan.cn',
-				// target: 'http://api.aqmcn.com',
-				// target: 'http://192.168.99.116:8060',
 				changeOrigin: true
 			}
 		}
@@ -35,25 +31,7 @@ module.exports = {
 			return args;
 		});
 		config.resolve.alias
-			.set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+			.set('@', resolve('src')) 
 			.set('_c', resolve('src/components'));
-		console.log('-----------------------------');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('开发前请先阅读README');
-		console.log('-----------------------------');
 	}
 };

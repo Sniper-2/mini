@@ -177,7 +177,7 @@ export default {
 
     // 保存更新
     saveData () {
-      this.offLineContent = this.offLineContent.replace('<img', '<img style="max-width: 100%"')
+      this.offLineContent = this.offLineContent.replace('<img', '<img style="max-width: 100%;display:block;"')
       let params = {
         address: this.oldConfigInfo.address,
         tel: this.oldConfigInfo.tel,

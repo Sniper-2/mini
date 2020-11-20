@@ -51,11 +51,12 @@
             <div v-show="scope.row.state" class="green">已完成</div>
           </template>
         </el-table-column>
-        <!-- <el-table-column align="center" prop="address" label="操作">
+        <el-table-column align="center" prop="address" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="updateStatus(scope.row)">更新状态</el-button>
+            <el-button v-if="!scope.row.state" type="success" size="small" @click="updateStatus(scope.row)">更新为已完成</el-button>
+            <div v-show="scope.row.state" class="green">已完成</div>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </el-table>
 
       <!-- 分页 -->
@@ -140,7 +141,19 @@ export default {
 
     // 更新状态
     updateStatus (item) {
-      
+      let params = {
+        id: item.id,
+        state: 1
+      }
+      this.request('', { loading: true }).post(this.apiConfig.updateReservationStatus, params).then(res => {
+        this.$message({
+          message: '操作成功!',
+          type: 'success'
+        });
+        item.state = 1
+      }).catch(err => {
+        this.$message.error(err.msg);
+      })
     }
   }
 };
