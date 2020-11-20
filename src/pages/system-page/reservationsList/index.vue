@@ -2,18 +2,18 @@
   <div class="height">
     <div class="flex bg-white flex-middle pad-all-15 search-item-box">
       <el-form :inline="true" class="demo-form-inline">
-        <el-form-item label="检验状态">
-          <el-select v-model="searchData.checkStatus" placeholder="请选择检验状态">
+        <el-form-item label="校验状态">
+          <el-select v-model="searchData.checkStatus" placeholder="请选择校验状态">
             <el-option label="全部状态" value=""></el-option>
             <el-option label="预约中" :value="0"></el-option>
             <el-option label="已完成" :value="1"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="检验方式">
-          <el-select v-model="searchData.checkMode" placeholder="请选择检验方式">
+        <el-form-item label="校验方式">
+          <el-select v-model="searchData.checkMode" placeholder="请选择校验方式">
             <el-option label="全部方式" value=""></el-option>
-            <el-option label="离线检验" :value="0"></el-option>
-            <el-option label="在线检验" :value="1"></el-option>
+            <el-option label="上门校验" :value="0"></el-option>
+            <el-option label="在线校验" :value="1"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -26,9 +26,9 @@
     <div class="mt-15 data-list">
       <el-table :data="tableData" border>
         <el-table-column align="center" prop="checkTime" label="预约时间"></el-table-column>
-        <el-table-column align="center" prop="mode" label="检验方式">
+        <el-table-column align="center" prop="mode" label="校验方式">
           <template slot-scope="scope">
-            <div v-show="!scope.row.online" class="red">离线校验</div>
+            <div v-show="!scope.row.online" class="red">上门校验</div>
             <div v-show="scope.row.online" class="green">在线校验</div>
           </template>
         </el-table-column>
@@ -43,7 +43,7 @@
         <el-table-column align="center" prop="name" label="公司名称"></el-table-column>
         <el-table-column align="center" prop="address" label="公司地址"></el-table-column>
         <el-table-column align="center" prop="contact" label="联系人"></el-table-column>
-        <el-table-column align="center" prop="num" label="检验数量"></el-table-column>
+        <el-table-column align="center" prop="num" label="校验数量"></el-table-column>
         <el-table-column align="center" prop="tel" label="联系电话"></el-table-column>
         <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
@@ -53,7 +53,7 @@
         </el-table-column>
         <el-table-column align="center" prop="address" label="操作">
           <template slot-scope="scope">
-            <el-button v-if="!scope.row.state" type="success" size="small" @click="updateStatus(scope.row)">更新为已完成</el-button>
+            <el-button v-if="!scope.row.state" type="success" size="small" @click="updateStatus(scope.row)">已完成</el-button>
             <div v-show="scope.row.state" class="green">已完成</div>
           </template>
         </el-table-column>
@@ -88,16 +88,7 @@ export default {
         page: 1,
         total: 100,
       },
-      tableData: [{
-        mode: '线上检验',
-        subTimes: '2020-02-02 14:55:22',
-        companyName: '哈哈哈有限公司',
-        companyAddress: '公司地址',
-        contacts: '李润亮',
-        checkNum: 2,
-        phoneNum: '15889984943',
-        status: '已检验/待检验'
-      }],
+      tableData: [],
     };
   },
   computed: {
