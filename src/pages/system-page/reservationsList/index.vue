@@ -45,7 +45,19 @@
         <el-table-column align="center" prop="contact" label="联系人"></el-table-column>
         <el-table-column align="center" prop="num" label="校验数量"></el-table-column>
         <el-table-column align="center" prop="tel" label="联系电话"></el-table-column>
-        <el-table-column align="center" prop="tel" label="检测报告"></el-table-column>
+        <el-table-column align="center" prop="tel" label="检测报告">
+          <template slot-scope="scope">
+            <a  target="_blank" :href="scope.row.pdf" v-if="scope.row.pdf">检测报告.PDF</a>
+            <el-upload :show-file-list="false"  v-if="!scope.row.pdf"
+              :headers="{ AdminToken: token }"
+              accept="application/pdf"
+              class="mb-15 upload-demo"
+              :on-success="upPDFSuccess"
+              action="/inspection/admin/configuration/upload">
+              <el-button size="small" type="primary" @click="rowUpPdf(scope.row)">点击上传</el-button>
+            </el-upload>
+          </template>
+        </el-table-column>
         <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
             <div v-show="!scope.row.state" class="red">预约中</div>
@@ -169,17 +181,28 @@ export default {
       this.operationItem = item;
     },
 
+    // 行点击上传pdf
+    rowUpPdf (item) {
+      this.operationItem = item;
+      this.rowUp = true
+    },
+
     // pdf上传成功
     upPDFSuccess(e) {
       this.pdfFile = e.data
       let pathArr = e.data.split('/')
       this.pdfFileName = pathArr.pop();
+
+      if (this.rowUp) {
+        this.confirmUpdateStatus()
+      }
     },
 
     // 上传完检验报告，确认更新状态
     confirmUpdateStatus () {
       let params = {
-        id: item.id,
+        pdf: this.pdfFile,
+        id: this.operationItem.id,
         state: 1
       }
       this.request('', { loading: true }).post(this.apiConfig.updateReservationStatus, params).then(res => {
@@ -187,7 +210,12 @@ export default {
           message: '操作成功!',
           type: 'success'
         });
-        item.state = 1
+        this.rowUp = false;
+        this.pdfFile = '';
+        this.pdfFileName = '';
+        this.testReportModel = false
+        this.operationItem = {};
+        this.getPageData()
       }).catch(err => {
         this.$message.error(err.msg);
       })
