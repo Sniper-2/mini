@@ -8,6 +8,7 @@
         <img :src="miniHomeImg" class="top-img">
 
         <el-upload :show-file-list="false"
+          accept="image/*"
           multiple
           :headers="{ AdminToken: token }"
           class="upload-demo"
@@ -25,8 +26,8 @@
         <img :src="onLineCheckImg" class="top-img">
 
         <el-upload :show-file-list="false"
-          multiple
           :headers="{ AdminToken: token }"
+          accept="image/*"
           class="upload-demo"
           :on-success="upImgSuccess"
           action="/inspection/admin/configuration/upload">
@@ -42,8 +43,8 @@
         <img :src="visitCheckImg" class="top-img">
 
         <el-upload :show-file-list="false"
-          multiple
           :headers="{ AdminToken: token }"
+          accept="image/*"
           class="upload-demo"
           :on-success="upImgSuccess"
           action="/inspection/admin/configuration/upload">
@@ -59,8 +60,8 @@
         <img :src="offLineCheckImg" class="top-img">
 
         <el-upload :show-file-list="false"
-          multiple
           :headers="{ AdminToken: token }"
+          accept="image/*"
           class="upload-demo"
           :on-success="upImgSuccess"
           action="/inspection/admin/configuration/upload">

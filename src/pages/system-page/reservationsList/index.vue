@@ -45,6 +45,7 @@
         <el-table-column align="center" prop="contact" label="联系人"></el-table-column>
         <el-table-column align="center" prop="num" label="校验数量"></el-table-column>
         <el-table-column align="center" prop="tel" label="联系电话"></el-table-column>
+        <el-table-column align="center" prop="tel" label="检测报告"></el-table-column>
         <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
             <div v-show="!scope.row.state" class="red">预约中</div>
@@ -69,6 +70,31 @@
         </el-pagination>
       </div>
     </div>
+
+    <!-- 上传检验报告 -->
+    <el-dialog
+      :center="true"
+      title="上传检测报告"
+      :visible.sync="testReportModel"
+      width="550px"
+      @close="handleClose">
+      <div class="tc pad-tb-20">
+        <el-upload :show-file-list="false"
+          :headers="{ AdminToken: token }"
+          accept="application/pdf"
+          class="mb-15 upload-demo"
+          :on-success="upPDFSuccess"
+          action="/inspection/admin/configuration/upload">
+          <el-button size="small" type="primary">点击上传检验报告</el-button>
+        </el-upload>
+        <a target="_blank" :href="pdfFile">{{ pdfFileName }}</a>
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="confirmUpdateStatus">确 定</el-button>
+        <el-button @click="testReportModel = false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -82,6 +108,10 @@ export default {
   },
   data() {
     return {
+      pdfFileName: '',
+      pdfFile: '',
+      operationItem: {},
+      testReportModel: false,
       searchData: {
         checkMode: '',
         checkStatus: '',
@@ -89,12 +119,15 @@ export default {
         total: 100,
       },
       tableData: [],
+      token: ''
     };
   },
   computed: {
 
   },
   created() {
+    
+    this.token = localStorage.getItem('token');
     this.getPageData()
   },
   mounted() {
@@ -132,6 +165,19 @@ export default {
 
     // 更新状态
     updateStatus (item) {
+      this.testReportModel = true
+      this.operationItem = item;
+    },
+
+    // pdf上传成功
+    upPDFSuccess(e) {
+      this.pdfFile = e.data
+      let pathArr = e.data.split('/')
+      this.pdfFileName = pathArr.pop();
+    },
+
+    // 上传完检验报告，确认更新状态
+    confirmUpdateStatus () {
       let params = {
         id: item.id,
         state: 1
@@ -145,8 +191,15 @@ export default {
       }).catch(err => {
         this.$message.error(err.msg);
       })
+    },
+
+    // 弹窗关闭
+    handleClose () {
+      this.pdfFile = '';
+      this.pdfFileName = '';
+      this.operationItem = {};
     }
-  }
+  },
 };
 </script>
 
