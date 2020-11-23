@@ -51,7 +51,7 @@
             <el-upload :show-file-list="false"  v-if="!scope.row.pdf"
               :headers="{ AdminToken: token }"
               accept="application/pdf"
-              class="mb-15 upload-demo"
+              class="upload-demo"
               :on-success="upPDFSuccess"
               action="/inspection/admin/configuration/upload">
               <el-button size="small" type="primary" @click="rowUpPdf(scope.row)">点击上传</el-button>
