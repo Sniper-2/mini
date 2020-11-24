@@ -76,14 +76,14 @@
           <el-button size="small" type="primary" @click="readyUpload('offLineMapImg')">点击上传地图</el-button>
         </el-upload> -->
 
-        <div v-html="offLineContent" class="map-img"></div>
+        <!-- <div v-html="offLineContent" class="map-img"></div> -->
 
         <!-- <img :src="offLineMapImg" class="map-img"> -->
       </div>
     </div>
 
 
-    <div class="mt-15">
+    <!-- <div class="mt-15">
       <div class="tc f-w pad-tb-10 f-16 item-title">离线校验页面尾部富文本</div>
       <quill-editor
         ref="myTextEditor"
@@ -92,7 +92,7 @@
         @ready="onEditorReady($event)"
         placeholder="请输入文章正文"
       ></quill-editor>
-    </div>
+    </div> -->
 
     <div class="t-c pad-tb-20">
       <el-button type="primary" @click="saveData">保存配置</el-button>

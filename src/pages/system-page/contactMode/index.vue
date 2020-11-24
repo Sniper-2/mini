@@ -8,13 +8,13 @@
         <el-input v-model="contactData.tel" placeholder="请输入联系电话"></el-input>
       </el-form-item>
       <el-form-item label="校验地址：" required>
-        <el-input v-model="contactData.address" placeholder="请输入校验地址"></el-input>
+        <el-input v-model="contactData.address" disabled placeholder="请输入校验地址"></el-input>
       </el-form-item>
       <el-form-item label="经度：" required>
-        <el-input v-model="contactData.lng" type="number" placeholder="请输入经度"></el-input>
+        <el-input v-model="contactData.lng" disabled type="number" placeholder="请输入经度"></el-input>
       </el-form-item>
       <el-form-item label="纬度：" required>
-        <el-input v-model="contactData.lat" type="number" placeholder="请输入纬度"></el-input>
+        <el-input v-model="contactData.lat" disabled type="number" placeholder="请输入纬度"></el-input>
       </el-form-item>
       <el-form-item label="营业时间：" required>
         <el-input v-model="contactData.businessHours" placeholder="请输入营业时间"></el-input>
