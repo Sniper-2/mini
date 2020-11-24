@@ -10,6 +10,12 @@
       <el-form-item label="校验地址：" required>
         <el-input v-model="contactData.address" placeholder="请输入校验地址"></el-input>
       </el-form-item>
+      <el-form-item label="经度：" required>
+        <el-input v-model="contactData.lng" type="number" placeholder="请输入经度"></el-input>
+      </el-form-item>
+      <el-form-item label="纬度：" required>
+        <el-input v-model="contactData.lat" type="number" placeholder="请输入纬度"></el-input>
+      </el-form-item>
       <el-form-item label="营业时间：" required>
         <el-input v-model="contactData.businessHours" placeholder="请输入营业时间"></el-input>
       </el-form-item>
@@ -32,6 +38,8 @@ export default {
     return {
       contactData: {
         address: '',
+        lng: '',
+        lat: '',
         businessHours: '',
         contact: '',
         tel: ''
@@ -67,6 +75,8 @@ export default {
         address: '请输入校验地址',
         businessHours: '请输入营业时间',
         contact: '请输入联系人姓名',
+        lng: '请输入校验地址的经度坐标',
+        lat: '请输入校验地址的纬度坐标',
         tel: '请输入联系电话'
       }
       for (const key in errorMap) {
@@ -92,11 +102,11 @@ export default {
 <style scoped lang="scss">
 .contact-mode {
   padding: 30px;
-  width: 400px;
+  width: 480px;
   border-radius: 8px;
   border: 1px solid #ccc;
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   /deep/ {

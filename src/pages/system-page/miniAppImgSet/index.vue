@@ -122,6 +122,7 @@ export default {
       editorOption: {
         placeholder: '请在这里填写资料'
       },
+      configData: {},
       token: '',
       upImgAttrName: '',
       miniHomeImg: 'http://1v85r80243.51mypc.cn/inspection/images/a0d618d0c8084972bc47ed615a8b012b.jpg',        // 小程序首页图片
@@ -160,6 +161,7 @@ export default {
     // 获取配置
     getConfig () {
       this.request('', { loading: true }).get(this.apiConfig.getConfig).then(res => {
+        this.configData = res.data
         this.oldConfigInfo = res.data
         this.offLineContent = res.data.offlineContent
         this.offLineCheckImg = res.data.offlineImg
@@ -180,6 +182,7 @@ export default {
     saveData () {
       this.offLineContent = this.offLineContent.replace('<img', '<img style="max-width: 100%;display:block;"')
       let params = {
+        ...this.configData,
         address: this.oldConfigInfo.address,
         tel: this.oldConfigInfo.tel,
         businessHours: this.oldConfigInfo.businessHours,
