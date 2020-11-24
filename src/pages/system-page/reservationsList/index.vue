@@ -48,14 +48,14 @@
         <el-table-column align="center" prop="tel" label="检测报告">
           <template slot-scope="scope">
             <a  target="_blank" :href="scope.row.pdf" v-if="scope.row.pdf">检测报告.PDF</a>
-            <el-upload :show-file-list="false"  v-if="!scope.row.pdf"
+            <!-- <el-upload :show-file-list="false"  v-if="!scope.row.pdf"
               :headers="{ AdminToken: token }"
               accept="application/pdf"
               class="upload-demo"
               :on-success="upPDFSuccess"
               action="/inspection/admin/configuration/upload">
               <el-button size="small" type="primary" @click="rowUpPdf(scope.row)">点击上传</el-button>
-            </el-upload>
+            </el-upload> -->
           </template>
         </el-table-column>
         <el-table-column align="center" prop="status" label="状态">
@@ -193,13 +193,16 @@ export default {
       let pathArr = e.data.split('/')
       this.pdfFileName = pathArr.pop();
 
-      if (this.rowUp) {
-        this.confirmUpdateStatus()
-      }
+      // if (this.rowUp) {
+      //   this.confirmUpdateStatus()
+      // }
     },
 
     // 上传完检验报告，确认更新状态
     confirmUpdateStatus () {
+      if (!this.pdfFile) {
+        return this.$message.error('请上传检验报告！');
+      }
       let params = {
         pdf: this.pdfFile,
         id: this.operationItem.id,
