@@ -1,6 +1,6 @@
 const path = require('path');
 const EVN =
-	process.env.BABEL_ENV == 'production' ? 'http://jy.zjnan.cn' : 'http://localhost:3000';
+	process.env.BABEL_ENV == 'production' ? 'http://backend.shslsb.com' : 'http://localhost:3000';
 
 const resolve = dir => {
 	return path.join(__dirname, dir);
@@ -14,7 +14,7 @@ module.exports = {
 		port: 3000,
 		proxy: {
 			'/inspection': {
-				target: 'http://jy.zjnan.cn',
+				target: 'http://backend.shslsb.com',
 				changeOrigin: true
 			}
 		}
